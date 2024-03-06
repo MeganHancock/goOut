@@ -3,9 +3,10 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
+import {  computed, onMounted } from 'vue';
 import Pop from '../utils/Pop.js';
 import { towerEventsService } from '../services/TowerEventsService.js';
+import { AppState } from '../AppState.js';
 
 export default {
 
@@ -25,7 +26,7 @@ async function getTowerEvents(){
 }
 
     return {
-      
+      events: computed(()=> AppState.events)
     }
   }
 }
