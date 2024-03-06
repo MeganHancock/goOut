@@ -1,5 +1,11 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <section class="row">
+      <div v-if="towerEvents" class="col-12">
+{{ towerEvents }}
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -26,7 +32,7 @@ async function getTowerEvents(){
 }
 
     return {
-      events: computed(()=> AppState.events)
+      towerEvents: computed(()=> AppState.towerEvents)
     }
   }
 }
