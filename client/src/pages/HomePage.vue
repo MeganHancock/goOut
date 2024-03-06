@@ -3,22 +3,21 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import Pop from '../utils/Pop.js';
-import { eventsService } from '../services/EventsService.js';
+import { towerEventsService } from '../services/TowerEventsService.js';
 
 export default {
 
   setup() {
 
 onMounted(()=>{
-  getEvents()
+  getTowerEvents()
 })
 
-async function getEvents(){
+async function getTowerEvents(){
   try {
-    await eventsService.getEvents()
-    
+    await towerEventsService.getTowerEvents()    
   } catch (error) {
     Pop.error(error)
   }
@@ -33,4 +32,4 @@ async function getEvents(){
 </script>
 <style scoped lang="scss">
 
-</style>
+</style>../services/TowerEventsService.js
