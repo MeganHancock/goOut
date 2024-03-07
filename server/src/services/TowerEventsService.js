@@ -6,9 +6,9 @@ class TowerEventsService {
         return events
     }
     async createTowerEvent(towerEventData) {
-        const event = await dbContext.TowerEvents.create(towerEventData)
-        await event.populate('creator')//populate('ticketCount)
-        return event
+        const newEvent = await dbContext.TowerEvents.create(towerEventData)
+        await newEvent.populate('creator')//populate('ticketCount)
+        return newEvent
     }
 }
 
