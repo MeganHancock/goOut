@@ -9,7 +9,7 @@ export class TowerEvent{
         this.capacity = data.capacity
         this.startDate = new Date(data.startDate).toLocaleDateString()
         this.startTime = new Date(data.startDate).toLocaleTimeString()
-        this.isCanceled = data.idCanceled
+        this.isCanceled = data.isCanceled
         this.type = data.type
         this.creator = data.creator
         this.ticketCount = data.ticketCount

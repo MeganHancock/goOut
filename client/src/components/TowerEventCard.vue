@@ -1,8 +1,14 @@
 <template>
     <RouterLink :to="{ name: 'Event Details', params: { eventId: towerEvent.id } }">
-        <div class="">
+        <div class="text-dark">
             <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid event-grid-image">
-            <p class="mb-0 fw-bold">{{ towerEvent.name }}</p>
+
+            <p class="mb-0 fw-bold"><span :class="{ 'is-canceled': towerEvent.isCanceled }">{{ towerEvent.name }}
+                </span> <span v-if="towerEvent.isCanceled" class="text-danger">Canceled</span></p>
+
+            <!-- <p class="mb-0 fw-bold">{{ towerEvent.name }}</p> -->
+
+
             <p class="mb-0">{{ towerEvent.startDate }} - {{ towerEvent.location }}</p>
             <p class="mb-0">(TODO ticket count) Attending</p>
         </div>
@@ -29,5 +35,10 @@ export default {
     // max-height: 10vh;
     object-fit: cover;
     aspect-ratio: 2/1;
+}
+
+.is-canceled {
+    color: #565254;
+    text-decoration: line-through
 }
 </style>

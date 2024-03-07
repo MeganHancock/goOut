@@ -6,7 +6,8 @@
       </div>
       <div class="col-8 mt-5">
 
-        <h1 :class="{ 'is-canceled': towerEvent.isCanceled }">{{ towerEvent.name }}</h1>
+        <h1><span :class="{ 'is-canceled': towerEvent.isCanceled }">{{ towerEvent.name }} </span> <span
+            v-if="towerEvent.isCanceled" class="text-danger">Canceled</span></h1>
         <p>{{ towerEvent.description }}</p>
 
         <p>Date and Time</p>
@@ -15,28 +16,37 @@
         <p>Location</p>
         <p>{{ towerEvent.location }} </p>
 
+        <p>Hosted by:</p>
+        <p>{{ towerEvent.creator.name }} </p>
+
 
 
       </div>
 
       <!-- NOTE BUTTONS SECTION -->
-      <div class="col-4 text-center">
+      <div class="col-md-4 text-center">
 
         <!-- NOTE ATTEND BUTTON -->
-        <h5 class="mb-0 mt-5 fw-bold">Interested in going?</h5>
-        <p class="mb-1">Grab a ticket!</p>
-        <button type="button" class="btn btn-info mb-3">Attend</button>
-        <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
+        <div>
+          <h5 class="mb-0 mt-5 fw-bold">Interested in going?</h5>
+          <p class="mb-1">Grab a ticket!</p>
+          <button type="button" class="btn btn-info mb-3 w-75">Attend</button>
+          <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
+        </div>
         <!-- NOTE CAN'T GO BUTTON -->
-        <h5 class="mb-0 mt-5 fw-bold">Can no longer attend?</h5>
-        <p class="mb-1">Let the host know!</p>
-        <button type="button" class="btn btn-warning mb-3">Can't go</button>
-        <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
+        <div>
+          <h5 class="mb-0 mt-5 fw-bold">Can no longer attend?</h5>
+          <p class="mb-1">Let the host know!</p>
+          <button type="button" class="btn btn-warning mb-3 w-75">Can't go</button>
+          <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
+        </div>
         <!-- NOTE EDIT BUTTON -->
-        <h5 class="mb-1 mt-5 fw-bold">Update your event</h5>
-        <button type="button" class="btn btn-success mb-3 me-2">Update</button>
-        <button @click="cancelTowerEvent(towerEvent.id)" type="button" class="btn btn-danger mb-3">Cancel</button>
-        <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
+        <div v-if="towerEvent.creatorId == account.id && !towerEvent.isCanceled">
+          <h5 class="mb-1 mt-5 fw-bold">Update your event</h5>
+          <button type="button" class="btn btn-success mb-3 me-md-2 w-25 me-1">Update</button>
+          <button @click="cancelTowerEvent()" type="button" class="btn btn-danger mb-3 w-25">Cancel</button>
+          <p class="text-end mb-5"><span class="text-success fw-bold ">2</span> spots left!</p>
+        </div>
 
         <div class="text-start ms-0">
           <h5 class="mt-3">Attendees</h5>
@@ -74,10 +84,15 @@ export default {
 
     return {
       towerEvent: computed(() => AppState.activeTowerEvent),
+      account: computed(() => AppState.account),
 
-      async cancelTowerEvent(eventId) {
+      async cancelTowerEvent() {
         try {
-          logger.log('canceling event', eventId)
+          logger.log('canceling event')
+          const towerEventToCancel = AppState.activeTowerEvent
+          const wantsToCancel = await Pop.confirm(`Are you sure you want to cancel ${towerEventToCancel.name}?`)
+          if (!wantsToCancel) return
+          await towerEventsService.cancelTowerEvent(towerEventToCancel.id)
         } catch (error) {
           Pop.error(error)
         }
