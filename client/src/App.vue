@@ -26,15 +26,15 @@ export default {
 
 <style lang="scss">
 @import "./assets/scss/main.scss";
-@import url('https://fonts.googleapis.com/css?family=Cabin+Regular');
+@import url('https://fonts.googleapis.com/css?family=Kanit+Regular');
 
 html,
 body {
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Kanit', sans-serif;
 }
 
 #app {
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Kanit', sans-serif;
 }
 
 :root {

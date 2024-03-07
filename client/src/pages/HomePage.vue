@@ -1,8 +1,8 @@
 <template>
   <!-- NOTE HERO SECTION -->
-  <div class="container-fluid bg-img d-flex align-items-end p-3">
+  <div class="container-fluid bg-img d-flex align-items-end p-3 mb-3 mx-0">
     <section class="row">
-      <div class="col-5">
+      <div class="col-5 hero-text">
         <h1 class="text-light">Event management for people, by people</h1>
         <h4 class="text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia obcaecati blanditiis
           quod ducimus dolores vel consectetur vero, eum eligendi exercitationem eaque laborum quisquam neque alias
@@ -15,33 +15,37 @@
 
     <!-- NOTE TWO CLICKABLE INFO CARDS -->
     <section class="row d-flex justify-content-between mb-4 m-2">
-      <div class="col-12">
+      <div class="col-12 mt-2">
         <h3>How Tower Works</h3>
       </div>
-      <div class="col-md-5 col-12 clickable-info-card p-3 d-flex rounded-3 mb-3">
-        <i class="mdi mdi-magnify fs-1 text-success"></i>
-        <div>
-          <p class="fs-4 mt-1">
-            Discover events you're interested in
-          </p>
-          <p>Browse through community hosted events for all the things you love</p>
+      <section class="row d-flex justify-content-between mt-3">
+        <div class="col-md-5 col-12 clickable-info-card p-3 d-flex rounded-3 mb-3">
+          <i class="mdi mdi-magnify fs-1 text-success"></i>
+          <div>
+            <p class="fs-4 mt-1">
+              Discover events you're interested in
+            </p>
+            <p>Browse through community hosted events for all the things you love</p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-5 col-12 clickable-info-card p-3 d-flex rounded-3  mb-3">
-        <i class="mdi mdi-plus fs-1 text-success"></i>
-        <div>
-          <p class="fs-4 mt-1">
-            Start and event to invite your friends
-          </p>
-          <p>Create your own Tower event, and draw from a community of millions</p>
-          <p role="button" class="text-success" data-bs-toggle="modal" data-bs-target="#eventFormModal">Create an event
-          </p>
+        <div class="col-md-5 col-12 clickable-info-card p-3 d-flex rounded-3  mb-3">
+          <i class="mdi mdi-plus fs-1 text-success"></i>
+          <div>
+            <p class="fs-4 mt-1">
+              Start and event to invite your friends
+            </p>
+            <p>Create your own Tower event, and draw from a community of millions</p>
+            <p role="button" class="text-success" data-bs-toggle="modal" data-bs-target="#eventFormModal">Create an
+              event
+            </p>
+          </div>
         </div>
-      </div>
 
 
-      <ModalComponent />
+        <ModalComponent />
+
+      </section>
 
 
     </section>
@@ -114,9 +118,6 @@ export default {
       } catch (error) {
         Pop.error(error)
       }
-
-
-
     }
 
     return {
@@ -147,5 +148,9 @@ export default {
 .clickable-info-card {
   background-color: lightgray;
 
+}
+
+.hero-text {
+  text-shadow: 3px 3px 3px black;
 }
 </style>

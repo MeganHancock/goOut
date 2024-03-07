@@ -4,7 +4,7 @@ import { api } from "./AxiosService.js"
 import { TowerEvent} from "../models/TowerEvent.js"
 
 class TowerEventsService{
-    async getTowerEvents() {
+        async getTowerEvents() {
         const response = await api.get('api/events')
         AppState.towerEvents = response.data.map(towerEventPOJO => new TowerEvent(towerEventPOJO))
         // logger.log('found events mapped', AppState.towerEvents)
@@ -24,5 +24,9 @@ class TowerEventsService{
         logger.log('getting event by id', response.data)
         AppState.activeTowerEvent = new TowerEvent(response.data)
     }
+
+    async getMyHostedTowerEvents() {
+        
+      }
 }
 export const towerEventsService = new TowerEventsService()
