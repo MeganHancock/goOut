@@ -5,7 +5,7 @@
   <main>
     <router-view />
   </main>
-   <footer>
+  <footer>
   </footer>
 </template>
 
@@ -23,10 +23,21 @@ export default {
   components: { Navbar }
 }
 </script>
+
 <style lang="scss">
 @import "./assets/scss/main.scss";
+@import url('https://fonts.googleapis.com/css?family=Cabin+Regular');
 
-:root{
+html,
+body {
+  font-family: 'Cabin', sans-serif;
+}
+
+#app {
+  font-family: 'Cabin', sans-serif;
+}
+
+:root {
   --main-height: calc(100vh - 32px - 64px);
 }
 
