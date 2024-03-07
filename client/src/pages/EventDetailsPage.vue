@@ -28,13 +28,15 @@
 
         <!-- NOTE ATTEND BUTTON -->
         <!--  && account.id != towerEvent.creatorId :hidden="isAttending || towerEvent.isCanceled" -->
-        <div v-if="account.id">
-          <div>
+        <div>
+
+          <div v-if="account.id && account.id != towerEvent.creatorId" :hidden="isAttending || towerEvent.isCanceled">
             <h5 class="mb-0 mt-5 fw-bold">Interested in going?</h5>
             <p class="mb-1">Grab a ticket!</p>
             <button @click="createTicket()" type="button" class="btn btn-info mb-3 w-75">Attend</button>
             <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
           </div>
+
           <!-- NOTE CAN'T GO BUTTON -->
           <div>
             <h5 class="mb-0 mt-5 fw-bold">Can no longer attend?</h5>
@@ -76,6 +78,7 @@ export default {
     const route = useRoute()
     onMounted(() => {
       getTowerEventById()
+      getTicketsByEventId()
     })
 
     async function getTowerEventById() {
@@ -86,10 +89,19 @@ export default {
       }
     }
 
+    async function getTicketsByEventId() {
+      try {
+        await ticketsService.getTicketsByEventId(route.params.eventId)
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
+
     return {
       towerEvent: computed(() => AppState.activeTowerEvent),
       account: computed(() => AppState.account),
       eventAttendees: computed(() => AppState.ticketedEventAttendees),
+      isAttending: computed(() => AppState.ticketedEventAttendees.some(attending => attending.accountId == AppState.account.id)),
 
       async cancelTowerEvent() {
         try {
@@ -103,15 +115,17 @@ export default {
       },
 
       async createTicket() {
-        logger.log('creating ticket')
+        // logger.log('creating ticket')
         try {
           const eventData = { eventId: route.params.eventId }
           await ticketsService.createTicket(eventData)
+          // logger.log('is attending')
         } catch (error) {
           Pop.error(error)
         }
 
       }
+
 
     }
   }
