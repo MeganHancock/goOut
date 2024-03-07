@@ -10,6 +10,12 @@ class TowerEventsService {
         await newEvent.populate('creator')//populate('ticketCount)
         return newEvent
     }
+
+    async getTowerEventById(eventId) {
+        const towerEvent = (await dbContext.TowerEvents.findById(eventId)).populate('creator')//populate('ticketCount)
+        if (!towerEvent) throw new Error(`no event with ID: ${eventId}`)
+        return towerEvent
+    }
 }
 
 export const towerEventsService = new TowerEventsService()

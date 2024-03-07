@@ -84,7 +84,7 @@ import { useRouter } from 'vue-router'
 export default {
   setup() {
     const router = useRouter()
-    const editableTowerEventData = ref({ name: '', description: '', coverImg: '', capacity: '', startDate: '', location: '' })
+    const editableTowerEventData = ref({ name: '', description: '', coverImg: '', capacity: '', startDate: '', location: '', type: '' })
     return {
       editableTowerEventData,
       eventTypes: ['concert', 'convention', 'sports', 'digital'],
@@ -92,9 +92,10 @@ export default {
       async createTowerEvent() {
         try {
           const towerEvent = await towerEventsService.createTowerEvent(editableTowerEventData.value)
+          // @ts-ignore
           editableTowerEventData.value = { name: '', description: '', type: '', coverImg: '', capacity: '', startDate: '', location: '' }
-          // Modal.getOrCreateInstance('#eventFormModal').hide()
-          // router.push({ name: 'Event Details', params: { eventId: towerEvent.id } })
+          Modal.getOrCreateInstance('#eventFormModal').hide()
+          router.push({ name: 'Event Details', params: { eventId: towerEvent.id } })
         } catch (error) {
           Pop.error(error)
         }

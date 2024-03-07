@@ -11,11 +11,11 @@ AppState.towerEvents = response.data.map(towerEventPOJO => new TowerEvent(towerE
 }
 
 async createTowerEvent(newTowerEventData){
-    logger.log('new event', newTowerEventData)
-    // const response = await api.post('api/events', newTowerEventData)
-    // const newTowerEvent = new TowerEvent(response.data)
-    // AppState.towerEvents.push(newTowerEvent)
-
+    const response = await api.post('api/events', newTowerEventData)
+    logger.log('new event', response.data)
+    const newTowerEvent = new TowerEvent(response.data)
+    AppState.towerEvents.push(newTowerEvent)
+    return newTowerEvent
 }
 
 }
