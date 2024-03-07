@@ -1,4 +1,5 @@
 <template>
+  <!-- NOTE HERO SECTION -->
   <div class="container-fluid bg-img d-flex align-items-end p-3">
     <section class="row">
       <div class="col-5">
@@ -7,7 +8,9 @@
       </div>
     </section>
   </div>
+
   <div class="container">
+    
     <!-- NOTE TWO CLICKABLE INFO CARDS -->
 <section class="row d-flex justify-content-between mb-4 m-2">
   <div class="col-12">
@@ -16,7 +19,7 @@
   <div class="col-md-5 col-12 clickable-info-card p-3 d-flex rounded-3 mb-3">
     <i class="mdi mdi-magnify fs-1 text-success"></i>
     <div>
-      <p class="fs-4">
+      <p class="fs-4 mt-1">
         Discover events you're interested in
       </p>
       <p>Browse through community hosted events for all the things you love</p>
@@ -26,13 +29,16 @@
   <div class="col-md-5 col-12 clickable-info-card p-3 d-flex rounded-3  mb-3">
     <i class="mdi mdi-plus fs-1 text-success"></i>
     <div>
-      <p class="fs-4">
+      <p class="fs-4 mt-1">
         Start and event to invite your friends
       </p>
       <p>Create your own Tower event, and draw from a community of millions</p>
-      <p class="text-success">Create an event</p>
+      <p role="button" class="text-success" data-bs-toggle="modal" data-bs-target="#eventFormModal">Create an event</p>
     </div>
   </div>
+
+
+  <ModalComponent/>
 
 
 </section>
@@ -52,6 +58,7 @@
 
 
 
+
   </div>
 </template>
 
@@ -61,6 +68,7 @@ import Pop from '../utils/Pop.js';
 import { towerEventsService } from '../services/TowerEventsService.js';
 import { AppState } from '../AppState.js';
 import TowerEventCard from '../components/TowerEventCard.vue'
+import ModalComponent from '../components/ModalComponent.vue';
 
 export default {
 
@@ -77,13 +85,15 @@ async function getTowerEvents(){
     Pop.error(error)
   }
 
+  
+
 }
 
     return {
       towerEvents: computed(()=> AppState.towerEvents)
     }
   },
-  components: {TowerEventCard}
+  components: {TowerEventCard, ModalComponent}
 }
 </script>
 <style scoped lang="scss">
