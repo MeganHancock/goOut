@@ -41,7 +41,7 @@
             <h5 class="mb-0 mt-5 fw-bold">Interested in going?</h5>
             <p class="mb-1">Grab a ticket!</p>
             <button @click="createTicket()" type="button" class="btn btn-info mb-3 w-75">Attend</button>
-            <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
+            <p class="text-end mb-5"><span class="text-success fw-bold">{{ remainingCapacity }}</span> spots left!</p>
           </div>
 
 
@@ -58,7 +58,7 @@
             <h5 class="mb-1 mt-5 fw-bold">Update your event</h5>
             <button type="button" class="btn btn-success mb-3 me-md-2 w-25 me-1">Update</button>
             <button @click="cancelTowerEvent()" type="button" class="btn btn-danger mb-3 w-25">Cancel</button>
-            <p class="text-end mb-5"><span class="text-success fw-bold ">2</span> spots left!</p>
+            <p class="text-end mb-5"><span class="text-success fw-bold ">{{ remainingCapacity }}</span> spots left!</p>
           </div>
         </div>
         <!-- NOTE ATTENDANCE COUNT -->
@@ -116,7 +116,7 @@ export default {
       account: computed(() => AppState.account),
       eventAttendees: computed(() => AppState.ticketedEventAttendees),
       isAttending: computed(() => AppState.ticketedEventAttendees.some(attending => attending.accountId == AppState.account.id)),
-      // thisTicket: computed(() => AppState.ticketedEventAttendees.findOne(ticket => ticket.event.id && ticket.account.id)),
+      remainingCapacity: computed(() => AppState.activeTowerEvent.capacity - AppState.activeTowerEvent.ticketCount),
 
       async cancelTowerEvent() {
         try {
@@ -141,9 +141,9 @@ export default {
 
       },
 
-      async removeTicket(ticketId) {
-        logger.log('removing ticket', ticketId)
-      }
+      // async removeTicket(ticketId) {
+      //   logger.log('removing ticket', ticketId)
+      // }
 
 
     }

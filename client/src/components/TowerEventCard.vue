@@ -3,7 +3,7 @@
         <div class="text-dark">
             <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid event-grid-image">
 
-            <p class="mb-0 fw-bold"><span
+            <p class="mb-0 fw-bold mt-1"><span
                     :class="{ 'is-canceled': towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity }">{{
         towerEvent.name }}
                 </span>
@@ -14,9 +14,13 @@
 
             <!-- <p class="mb-0 fw-bold">{{ towerEvent.name }}</p> -->
 
+            <div v-if="!towerEvent.isCanceled">
 
-            <p class="mb-0">{{ towerEvent.startDate }} - {{ towerEvent.location }}</p>
-            <p class="mb-0">(TODO ticket count) Attending</p>
+                <p class="mb-0">{{ towerEvent.startDate }} - {{ towerEvent.location }}</p>
+                <p class="mb-0"><span class="fw-bold text-success">
+                        {{ towerEvent.ticketCount }}
+                    </span> Attending</p>
+            </div>
         </div>
 
     </RouterLink>
