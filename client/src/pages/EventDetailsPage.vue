@@ -27,11 +27,12 @@
       <div class="col-md-4 text-center">
 
         <!-- NOTE ATTEND BUTTON -->
+        <!--  && account.id != towerEvent.creatorId :hidden="isAttending || towerEvent.isCanceled" -->
         <div v-if="account.id">
           <div>
             <h5 class="mb-0 mt-5 fw-bold">Interested in going?</h5>
             <p class="mb-1">Grab a ticket!</p>
-            <button type="button" class="btn btn-info mb-3 w-75">Attend</button>
+            <button @click="createTicket()" type="button" class="btn btn-info mb-3 w-75">Attend</button>
             <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
           </div>
           <!-- NOTE CAN'T GO BUTTON -->
@@ -49,7 +50,7 @@
             <p class="text-end mb-5"><span class="text-success fw-bold ">2</span> spots left!</p>
           </div>
         </div>
-
+        <!-- NOTE ATTENDANCE COUNT -->
         <div class="text-start mt-5">
           <h5 class="mt-3">Attendees</h5>
           <p><i class="mdi mdi-dots-vertical"></i><i class="mdi mdi-face-man-profile"></i>attendee name</p>
@@ -66,6 +67,7 @@ import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router'
 import Pop from '../utils/Pop.js'
 import { towerEventsService } from '../services/TowerEventsService.js';
+import { ticketsService } from '../services/TicketsService.js';
 import { logger } from '../utils/Logger.js';
 
 
@@ -87,10 +89,10 @@ export default {
     return {
       towerEvent: computed(() => AppState.activeTowerEvent),
       account: computed(() => AppState.account),
+      eventAttendees: computed(() => AppState.ticketedEventAttendees),
 
       async cancelTowerEvent() {
         try {
-          logger.log('canceling event')
           const towerEventToCancel = AppState.activeTowerEvent
           const wantsToCancel = await Pop.confirm(`Are you sure you want to cancel ${towerEventToCancel.name}?`)
           if (!wantsToCancel) return
@@ -98,6 +100,17 @@ export default {
         } catch (error) {
           Pop.error(error)
         }
+      },
+
+      async createTicket() {
+        logger.log('creating ticket')
+        try {
+          const eventData = { eventId: route.params.eventId }
+          await ticketsService.createTicket(eventData)
+        } catch (error) {
+          Pop.error(error)
+        }
+
       }
 
     }
