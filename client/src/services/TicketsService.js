@@ -12,8 +12,10 @@ class TicketsService {
     }
 
     async getTicketsByEventId(eventId){
-        logger.log('build out back end')
-
+        const response = await api.get(`api/events/${eventId}/tickets`)
+        logger.log('got tickets', response.data)
+        const newTickets = response.data.map(ticketPOJO => new Ticket(ticketPOJO))
+        AppState.ticketedEventAttendees = newTickets
     }
 
 }
