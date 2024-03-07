@@ -3,8 +3,14 @@
         <div class="text-dark">
             <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid event-grid-image">
 
-            <p class="mb-0 fw-bold"><span :class="{ 'is-canceled': towerEvent.isCanceled }">{{ towerEvent.name }}
-                </span> <span v-if="towerEvent.isCanceled" class="text-danger">Canceled</span></p>
+            <p class="mb-0 fw-bold"><span
+                    :class="{ 'is-canceled': towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity }">{{
+        towerEvent.name }}
+                </span>
+                <span v-if="towerEvent.isCanceled" class="text-danger"> Canceled</span>
+                <span v-if="towerEvent.ticketCount == towerEvent.capacity" class="text-danger"> At capacity</span>
+
+            </p>
 
             <!-- <p class="mb-0 fw-bold">{{ towerEvent.name }}</p> -->
 

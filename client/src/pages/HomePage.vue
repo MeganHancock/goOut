@@ -2,11 +2,12 @@
   <!-- NOTE HERO SECTION -->
   <div class="container-fluid bg-img d-flex align-items-end p-3 mb-3 mx-0">
     <section class="row">
-      <div class="col-5 hero-text">
+      <div class="col-md-5 hero-text">
         <h1 class="text-light">Event management for people, by people</h1>
-        <h4 class="text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia obcaecati blanditiis
+        <p class="text-light fs-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia obcaecati
+          blanditiis
           quod ducimus dolores vel consectetur vero, eum eligendi exercitationem eaque laborum quisquam neque alias
-          voluptatem adipisci corrupti eos molestias!</h4>
+          voluptatem adipisci corrupti eos molestias!</p>
       </div>
     </section>
   </div>

@@ -17,5 +17,8 @@ export const AppState = reactive({
   activeTowerEvent: null,  
   
   /** @type {Ticket[]} */
-  ticketedEventAttendees: []
+  ticketedEventAttendees: [],
+  
+  /** @type {Ticket[]} */
+  activeTicket: null
 })

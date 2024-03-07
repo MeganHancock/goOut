@@ -1,13 +1,19 @@
 <template>
-  <div v-if="towerEvent" class="container">
+  <div v-if="towerEvent" class="container d-flex justify-content-center">
     <section class="row">
-      <div class="col-12">
+      <div class="col-12 text-center">
         <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid rounded-3">
       </div>
-      <div class="col-8 mt-5">
+      <h4 v-if="isAttending && !towerEvent.isCanceled" class="text-success text-center mt-5">You are attending this
+        event!</h4>
+      <div class="col-12"></div>
+      <div class="col-md-7 mt-5 me-md-5">
 
-        <h1><span :class="{ 'is-canceled': towerEvent.isCanceled }">{{ towerEvent.name }} </span> <span
-            v-if="towerEvent.isCanceled" class="text-danger">Canceled</span></h1>
+        <h1><span :class="{ 'is-canceled': towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity }">{{
+    towerEvent.name }} </span>
+          <span v-if="towerEvent.isCanceled" class="text-danger">Canceled</span>
+          <span v-if="towerEvent.ticketCount == towerEvent.capacity" class="text-danger"> At capacity</span>
+        </h1>
         <p>{{ towerEvent.description }}</p>
 
         <p>Date and Time</p>
@@ -30,20 +36,23 @@
         <!--  && account.id != towerEvent.creatorId :hidden="isAttending || towerEvent.isCanceled" -->
         <div>
 
-          <div v-if="account.id && account.id != towerEvent.creatorId" :hidden="isAttending || towerEvent.isCanceled">
+          <div v-if="account.id && account.id != towerEvent.creatorId"
+            :hidden="isAttending || towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity">
             <h5 class="mb-0 mt-5 fw-bold">Interested in going?</h5>
             <p class="mb-1">Grab a ticket!</p>
             <button @click="createTicket()" type="button" class="btn btn-info mb-3 w-75">Attend</button>
             <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
           </div>
 
+
           <!-- NOTE CAN'T GO BUTTON -->
-          <div>
+          <!-- <div>
             <h5 class="mb-0 mt-5 fw-bold">Can no longer attend?</h5>
             <p class="mb-1">Let the host know!</p>
-            <button type="button" class="btn btn-warning mb-3 w-75">Can't go</button>
+            <button @click="removeTicket()" type="button" class="btn btn-warning mb-3 w-75">Can't
+              go</button>
             <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
-          </div>
+          </div> -->
           <!-- NOTE EDIT BUTTON -->
           <div v-if="towerEvent.creatorId == account.id && !towerEvent.isCanceled">
             <h5 class="mb-1 mt-5 fw-bold">Update your event</h5>
@@ -54,8 +63,13 @@
         </div>
         <!-- NOTE ATTENDANCE COUNT -->
         <div class="text-start mt-5">
-          <h5 class="mt-3">Attendees</h5>
-          <p><i class="mdi mdi-dots-vertical"></i><i class="mdi mdi-face-man-profile"></i>attendee name</p>
+          <h5 v-if="eventAttendees" class="mt-3">Attendees</h5>
+          <div v-for="attendee in eventAttendees" :key="attendee.profile">
+            <p><i class="mdi mdi-dots-vertical"></i>
+              <span><img :src="attendee.profile.picture" :alt="attendee.profile.name" class="profile-icon"></span>
+              {{ attendee.profile.name }}
+            </p>
+          </div>
         </div>
 
       </div>
@@ -102,6 +116,7 @@ export default {
       account: computed(() => AppState.account),
       eventAttendees: computed(() => AppState.ticketedEventAttendees),
       isAttending: computed(() => AppState.ticketedEventAttendees.some(attending => attending.accountId == AppState.account.id)),
+      // thisTicket: computed(() => AppState.ticketedEventAttendees.findOne(ticket => ticket.event.id && ticket.account.id)),
 
       async cancelTowerEvent() {
         try {
@@ -124,6 +139,10 @@ export default {
           Pop.error(error)
         }
 
+      },
+
+      async removeTicket(ticketId) {
+        logger.log('removing ticket', ticketId)
       }
 
 
@@ -137,4 +156,142 @@ export default {
   color: #565254;
   text-decoration: line-through
 }
-</style>
+
+.profile-icon {
+  border-radius: 50%;
+  height: 3vh;
+}
+</style>// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
