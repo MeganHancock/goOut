@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
+import { Forbidden } from "../utils/Errors.js"
 
 class TowerEventsService {
     async getAllTowerEvents() {
@@ -30,10 +31,12 @@ class TowerEventsService {
         return towerEventToUpdate
     }
 
-    async removeTowerEvent(eventId) {
-        const towerEventToRemove = await this.getTowerEventById(eventId)
-        await towerEventToRemove.deleteOne()
-        return `${towerEventToRemove.name} has been removed.`
+    async cancelTowerEvent(eventId, userId) {
+        const towerEventToCancel = await this.getTowerEventById(eventId)
+        if (towerEventToCancel.creatorId != userId) throw new Forbidden(`Can not cancel ${towerEventToCancel.name}.`)
+        towerEventToCancel.isCanceled = true
+        await towerEventToCancel.save()
+        return `${towerEventToCancel.name} has been removed.`
     }
 }
 
