@@ -16,7 +16,7 @@
         <div class="modal-body">
 
           <!-- NOTE FORM SECTION -->
-          <form>
+          <form @submit.prevent="createTowerEvent()">
             <div class="mb-3">
               <label for="eventName" class="form-label">Event Name</label>
               <input v-model="editableTowerEventData.name" type="string" class="form-control" id="eventName"
@@ -47,9 +47,6 @@
               <input v-model="editableTowerEventData.startDate" type="date" class="form-control" id="eventStartDate"
                 aria-describedby="eventCapacity" required>
             </div>
-            <div class="mb-3">
-              <input type="enum" class="form-control" id="eventType" aria-describedby="eventType" required>
-            </div>
 
             <div class="form-floating mb-3">
               <label for="eventType" class="form-label">Event Category</label>
@@ -59,11 +56,11 @@
               </select>
             </div>
 
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Create Event</button>
+            </div>
           </form>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
         </div>
       </div>
     </div>
@@ -79,26 +76,31 @@
 
 <script>
 import Pop from '../utils/Pop.js'
-// import { towerEventsService } from '../services/TowerEventsService.js'
+import { towerEventsService } from '../services/TowerEventsService.js'
 import { ref } from 'vue'
+import { Modal } from 'bootstrap'
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
-    const editableTowerEventData = ref({ name: '', description: '', type: '', coverImg: '', capacity: '', startDate: '', location: '' })
+    const router = useRouter()
+    const editableTowerEventData = ref({ name: '', description: '', coverImg: '', capacity: '', startDate: '', location: '' })
     return {
       editableTowerEventData,
-      eventTypes: ['Concert', 'Convention', 'Sports', 'Digital'],
+      eventTypes: ['concert', 'convention', 'sports', 'digital'],
 
-      //     async createTowerEvent(){
-      //         try {
-      //             const towerEvent = await towerEventsService.createTowerEvent()
+      async createTowerEvent() {
+        try {
+          const towerEvent = await towerEventsService.createTowerEvent(editableTowerEventData.value)
+          editableTowerEventData.value = { name: '', description: '', type: '', coverImg: '', capacity: '', startDate: '', location: '' }
+          // Modal.getOrCreateInstance('#eventFormModal').hide()
+          // router.push({ name: 'Event Details', params: { eventId: towerEvent.id } })
+        } catch (error) {
+          Pop.error(error)
+        }
 
-      //         } catch (error) {
-      //             Pop.error(error)
-      //         } 
 
-
-      // }
+      }
     }
   }
 }

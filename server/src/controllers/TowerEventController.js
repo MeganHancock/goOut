@@ -1,30 +1,30 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
-import { eventsService } from "../services/EventsService.js";
+import { towerEventsService } from "../services/TowerEventsService.js";
 
 export class EventController extends BaseController {
     constructor() {
         super('api/events')
         this.router
-            .get('', this.getAllEvents)
+            .get('', this.getAllTowerEvents)
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .post('', this.createEvent)
+            .post('', this.createTowerEvent)
     }
 
-    async createEvent(request, response, next) {
+    async createTowerEvent(request, response, next) {
         try {
             const eventData = request.body
             eventData.creatorId = request.userInfo.id
-            const newEvent = await eventsService.createEvent(eventData)
+            const newEvent = await towerEventsService.createTowerEvent(eventData)
             response.send(newEvent)
         } catch (error) {
             next(error)
         }
     }
 
-    async getAllEvents(request, response, next) {
+    async getAllTowerEvents(request, response, next) {
         try {
-            const events = await eventsService.getAllEvents()
+            const events = await towerEventsService.getAllTowerEvents()
             response.send(events)
         } catch (error) {
             next(error)
