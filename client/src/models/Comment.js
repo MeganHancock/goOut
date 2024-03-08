@@ -4,7 +4,8 @@ export class Comment{
         this.creatorId = data.creatorId
         this.eventId = data.eventId
         this.body = data.body
-        this.createdAt = data.createdAt
+        this.dateCreatedAt = new Date(data.createdAt).toLocaleDateString()
+        this.timeCreatedAt = new Date(data.createdAt).toLocaleTimeString()
         this.updatedAt = data.updatedAt
         this.creator = data.creator
     }

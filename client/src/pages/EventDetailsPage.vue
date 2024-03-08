@@ -71,20 +71,38 @@
 
 
     <!-- NOTE COMMENT SECTION -->
-    <section v-if="comments"
-      class="row d-flex justify-content-center action-card rounded-2 m-md-5 m-1 py-3 position-relative">
-      <div v-for="comment in comments" :key="comment.id" class="col-10">
-        <CommentComponent :comment="comment" />
+    <div v-if="!towerEvent.isCanceled" class="col-12 action-card p-2 pb-md-3 rounded-2 mt-3">
 
-      </div>
-    </section>
+      <section class="row justify-content-center">
+        <div class="col-md-10 m-md-3 mb-md-0">
+          <form @submit.prevent="postComment()">
+            <div class="form-floating d-md-flex align-items-center">
+              <textarea v-model="commentData.body" class="form-control " placeholder="Leave a comment here"
+                id="floatingTextarea2" style="height: 100px" minlength="5" maxLength="500" required></textarea>
+              <label for="floatingTextarea2">Comments</label>
+              <button role="submit" class=" btn btn-success text-end mt-1 ms-md-2 fw-bold text-center p-1 ">Post
+                Comment</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section v-if="comments.length" class="row d-flex justify-content-center rounded-2  m-1 py-3 position-relative">
+        <div v-for="comment in comments" :key="comment.id" class="col-md-10 mb-2">
+          <CommentComponent :comment="comment" />
+
+        </div>
+      </section>
+
+    </div>
+
   </div>
 
 </template>
 
 <script>
 import { AppState } from '../AppState';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router'
 import Pop from '../utils/Pop.js'
 import { towerEventsService } from '../services/TowerEventsService.js';
@@ -96,6 +114,8 @@ import CommentComponent from '../components/CommentComponent.vue';
 
 export default {
   setup() {
+    const commentData = ref({})
+
     const route = useRoute()
     onMounted(() => {
       getTowerEventById()
@@ -128,6 +148,8 @@ export default {
     }
 
     return {
+      commentData,
+
       towerEvent: computed(() => AppState.activeTowerEvent),
       account: computed(() => AppState.account),
       eventAttendees: computed(() => AppState.ticketedEventAttendees),
@@ -158,6 +180,16 @@ export default {
 
       },
 
+      async postComment() {
+        try {
+          logger.log('posting comment')
+          // @ts-ignore
+          commentData.value.eventId = route.params.eventId
+          await commentsService.postComment(commentData.value)
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
 
 
     }
