@@ -60,7 +60,13 @@ export default {
       towerEvents: computed(() => AppState.myTicketedEvents),
 
       async removeTicket(ticketId) {
-        logger.log('removing ticket', ticketId)
+        try {
+          const wantsToRemove = await Pop.confirm('Are you sure you would like to cancel your ticket?')
+          if (!wantsToRemove) return
+          await ticketsService.removeTicket(ticketId)
+        } catch (error) {
+          Pop.error(error)
+        }
       }
     }
   },

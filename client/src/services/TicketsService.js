@@ -20,13 +20,21 @@ class TicketsService {
 
     async getMyTickets() {
         const response = await api.get('account/tickets')
-        logger.log('got tickets', response.data)
         const newTickets = response.data.map(ticketPOJO => new Ticket(ticketPOJO))
-        logger.log('myTicket', newTickets)
+        // logger.log('myTicket', newTickets)
         AppState.myTicketedEvents = newTickets
         
     }
+    
+    async removeTicket(ticketId){
+        const response = await api.delete(`api/tickets/${ticketId}`)
+        logger.log('deleting ticket', response.data)
+        const ticketIndex = AppState.myTicketedEvents.findIndex(ticket => ticket.ticketId == ticketId)
+        if(ticketIndex == -1) throw new Error('Index is -1')
+        AppState.myTicketedEvents.splice(ticketIndex, 1)
 
+
+    }
 }
 
 export const ticketsService = new TicketsService()
