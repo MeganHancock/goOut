@@ -18,6 +18,15 @@ class TicketsService {
         AppState.ticketedEventAttendees = newTickets
     }
 
+    async getMyTickets() {
+        const response = await api.get('account/tickets')
+        logger.log('got tickets', response.data)
+        const newTickets = response.data.map(ticketPOJO => new Ticket(ticketPOJO))
+        logger.log('myTicket', newTickets)
+        AppState.myTicketedEvents = newTickets
+        
+    }
+
 }
 
 export const ticketsService = new TicketsService()

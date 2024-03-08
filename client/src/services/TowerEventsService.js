@@ -2,6 +2,7 @@ import { AppState } from "../AppState.js"
 import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { TowerEvent} from "../models/TowerEvent.js"
+import { Ticket } from "../models/Ticket.js"
 
 class TowerEventsService{
     async getTowerEvents() {
@@ -31,8 +32,6 @@ class TowerEventsService{
         AppState.activeTowerEvent.isCanceled = true
     }
 
-    async getMyHostedTowerEvents() {
-        
-    }
+
 }
 export const towerEventsService = new TowerEventsService()
