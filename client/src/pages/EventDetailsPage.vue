@@ -74,13 +74,8 @@
     <section v-if="comments"
       class="row d-flex justify-content-center action-card rounded-2 m-md-5 m-1 py-3 position-relative">
       <div v-for="comment in comments" :key="comment.id" class="col-10">
-        <div class="card rounded shadow d-flex  flex-row pt-2">
-          <img :src="comment.creator.picture" :alt="comment.creator.name" class="align-self-center mx-2">
-          <div>
-            <h3>{{ comment.creator.name }}</h3>
-            <p>{{ comment.body }}!</p>
-          </div>
-        </div>
+        <CommentComponent :comment="comment" />
+
       </div>
     </section>
   </div>
@@ -96,6 +91,7 @@ import { towerEventsService } from '../services/TowerEventsService.js';
 import { ticketsService } from '../services/TicketsService.js';
 import { logger } from '../utils/Logger.js';
 import { commentsService } from '../services/CommentsService.js';
+import CommentComponent from '../components/CommentComponent.vue';
 
 
 export default {
@@ -165,7 +161,9 @@ export default {
 
 
     }
-  }
+  },
+  components: { CommentComponent }
+
 }
 </script>
 
