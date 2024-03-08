@@ -25,18 +25,11 @@
 
         <p class="fw-bold mb-0">Hosted by:</p>
         <p>{{ towerEvent.creator.name }} </p>
-
-
-
       </div>
 
       <!-- NOTE BUTTONS SECTION. -->
       <div class="col-md-4 text-center">
-
-        <!-- NOTE ATTEND BUTTON -->
-        <!--  && account.id != towerEvent.creatorId :hidden="isAttending || towerEvent.isCanceled" -->
         <div>
-
           <div v-if="account.id && account.id != towerEvent.creatorId"
             :hidden="isAttending || towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity">
             <h5 class="mb-0 mt-5 fw-bold">Interested in going?</h5>
@@ -66,6 +59,14 @@
 
       </div>
     </section>
+
+    <!-- <section class="row">
+      <div class="col-12">
+        <form>
+          text
+        </form>
+      </div>
+    </section> -->
   </div>
 </template>
 

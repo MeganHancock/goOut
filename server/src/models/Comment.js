@@ -3,12 +3,12 @@ import { Schema } from "mongoose"
 
 export const CommentSchema = new Schema({
     creatorId: { type: Schema.ObjectId, required: true, ref: 'Account' },
-    eventId: { type: Schema.ObjectId, required: true, ref: 'TowerEvent' },
+    eventId: { type: Schema.ObjectId, required: true, ref: 'Comment' },
     body: { type: String, minLength: 3, maxLength: 500, required: true },
 }, { timestamps: true, toJSON: { virtuals: true } })
 
-CommentSchema.virtual('profile', {
-    localField: 'accountId',
+CommentSchema.virtual('creator', {
+    localField: 'creatorId',
     foreignField: '_id',
     ref: 'Account',
     justOne: true
