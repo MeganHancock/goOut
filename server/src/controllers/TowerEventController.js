@@ -52,8 +52,9 @@ export class TowerEventController extends BaseController {
     async updateTowerEvent(request, response, next) {
         try {
             const eventId = request.params.eventId
+            const userId = request.userInfo.id
             const towerEventData = request.body
-            const updatedTowerEvent = await towerEventsService.updateTowerEvent(eventId, towerEventData)
+            const updatedTowerEvent = await towerEventsService.updateTowerEvent(eventId, towerEventData, userId)
             response.send(updatedTowerEvent)
         } catch (error) {
             next(error)
