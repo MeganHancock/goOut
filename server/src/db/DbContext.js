@@ -10,6 +10,8 @@ class DbContext {
   TowerEvents = mongoose.model('TowerEvent', TowerEventSchema)
 
   Tickets = mongoose.model('Ticket', TicketSchema)
+
+  Comments = mongoose.mod
 }
 
 export const dbContext = new DbContext()
