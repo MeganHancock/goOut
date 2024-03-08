@@ -9,20 +9,21 @@
       <div class="col-12"></div>
       <div class="col-md-7 mt-5 me-md-5">
 
-        <h1><span :class="{ 'is-canceled': towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity }">{{
+        <h1><span :class="{ 'is-canceled': towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity }"
+            class="fw-bold">{{
     towerEvent.name }} </span>
-          <span v-if="towerEvent.isCanceled" class="text-danger">Canceled</span>
+          <span v-if="towerEvent.isCanceled" class="text-danger"> Canceled</span>
           <span v-if="towerEvent.ticketCount == towerEvent.capacity" class="text-danger"> At capacity</span>
         </h1>
         <p>{{ towerEvent.description }}</p>
 
-        <p>Date and Time</p>
+        <p class="fw-bold mb-0">Date and Time</p>
         <p>{{ towerEvent.startDate }} at {{ towerEvent.startTime }}</p>
 
-        <p>Location</p>
+        <p class="fw-bold mb-0">Location</p>
         <p>{{ towerEvent.location }} </p>
 
-        <p>Hosted by:</p>
+        <p class="fw-bold mb-0">Hosted by:</p>
         <p>{{ towerEvent.creator.name }} </p>
 
 
@@ -44,15 +45,6 @@
             <p class="text-end mb-5"><span class="text-success fw-bold">{{ remainingCapacity }}</span> spots left!</p>
           </div>
 
-
-          <!-- NOTE CAN'T GO BUTTON -->
-          <!-- <div>
-            <h5 class="mb-0 mt-5 fw-bold">Can no longer attend?</h5>
-            <p class="mb-1">Let the host know!</p>
-            <button @click="removeTicket()" type="button" class="btn btn-warning mb-3 w-75">Can't
-              go</button>
-            <p class="text-end mb-5"><span class="text-success fw-bold">2</span> spots left!</p>
-          </div> -->
           <!-- NOTE EDIT BUTTON -->
           <div v-if="towerEvent.creatorId == account.id && !towerEvent.isCanceled">
             <h5 class="mb-1 mt-5 fw-bold">Update your event</h5>
@@ -62,7 +54,7 @@
           </div>
         </div>
         <!-- NOTE ATTENDANCE COUNT -->
-        <div class="text-start mt-5">
+        <div v-if="!towerEvent.isCanceled" class="text-start mt-5">
           <h5 v-if="eventAttendees" class="mt-3">Attendees</h5>
           <div v-for="attendee in eventAttendees" :key="attendee.profile">
             <p><i class="mdi mdi-dots-vertical"></i>

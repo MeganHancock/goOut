@@ -140,7 +140,7 @@ export default {
 <style scoped lang="scss">
 .bg-img {
   background-image: url(https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-  height: 500px;
+  height: 600px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
