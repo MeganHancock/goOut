@@ -1,6 +1,6 @@
 <template>
-  <div v-if="towerEvent" class="container d-flex justify-content-center">
-    <section class="row justify-content-around ms-5">
+  <div v-if="towerEvent" class="container ">
+    <section class="row justify-content-around ms-md-5">
       <div class="col-12 text-center">
         <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid rounded-3">
       </div>
@@ -46,15 +46,15 @@
           <div v-if="towerEvent.creatorId == account.id && !towerEvent.isCanceled">
             <h5 class="mb-2 mt-5 fw-bold">Update your event</h5>
             <button @click="console.log('this will be an edit button :D ')" type="button"
-              class="btn btn-success mb-3 me-md-2 w-25 me-1">Update</button>
-            <button @click="cancelTowerEvent()" type="button" class="btn btn-danger mb-3 w-25">Cancel</button>
+              class="btn btn-success mb-3 me-md-2 me-1 p-3">Update</button>
+            <button @click="cancelTowerEvent()" type="button" class="btn btn-danger mb-3 p-3">Cancel</button>
             <p class="text-end mb-5"><span class="text-success fw-bold ">{{ remainingCapacity }}</span> spots left!</p>
           </div>
         </div>
 
         <!-- NOTE ATTENDANCE COUNT -->
-        <div class="text-start">
-          <h5 v-if="eventAttendees && !towerEvent.isCanceled" class="mt-3 mb-3 fw-bold text-center">Attendees {{
+        <div v-if="eventAttendees.length && !towerEvent.isCanceled" class="text-start">
+          <h5 class="mt-3 mb-3 fw-bold text-center">Attendees {{
     eventAttendees.length }}</h5>
           <div v-for="attendee in eventAttendees" :key="attendee.profile" class="mt-1">
             <p class="d-flex align-items-center"><i class="mdi mdi-dots-vertical fs-3"> </i>
@@ -68,14 +68,21 @@
       </div>
     </section>
 
+
+
     <!-- NOTE COMMENT SECTION -->
-    <!-- <section class="row">
-      <div class="col-12">
-        <form>
-          text
-        </form>
+    <section class="row d-flex justify-content-center action-card rounded-2 m-md-5 m-1 py-3 position-relative">
+      <div class="col-10">
+        <div class="card rounded shadow d-flex justify-content-between flex-row pt-2">
+          <h1 class="align-self-center mx-2">😎</h1>
+          <div>
+            <h3>Name</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae dolor aliquam nobis, iure distinctio
+              quisquam sequi praesentium quae nihil quos!</p>
+          </div>
+        </div>
       </div>
-    </section> -->
+    </section>
   </div>
 </template>
 
@@ -159,10 +166,10 @@ export default {
   text-decoration: line-through
 }
 
-// .action-card {
-//   background-color: lightgray;
+.action-card {
+  background-color: lightgray;
 
-// }
+}
 
 .profile-icon {
   border-radius: 50%;
