@@ -94,6 +94,7 @@ import Pop from '../utils/Pop.js'
 import { towerEventsService } from '../services/TowerEventsService.js';
 import { ticketsService } from '../services/TicketsService.js';
 import { logger } from '../utils/Logger.js';
+import { commentsService } from '../services/CommentsService.js';
 
 
 export default {
@@ -102,6 +103,7 @@ export default {
     onMounted(() => {
       getTowerEventById()
       getTicketsByEventId()
+      getCommentsByEventId()
     })
 
     async function getTowerEventById() {
@@ -115,6 +117,14 @@ export default {
     async function getTicketsByEventId() {
       try {
         await ticketsService.getTicketsByEventId(route.params.eventId)
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
+
+    async function getCommentsByEventId() {
+      try {
+        await commentsService.getCommentsByEventId(route.params.eventId)
       } catch (error) {
         Pop.error(error)
       }
@@ -150,9 +160,6 @@ export default {
 
       },
 
-      // async removeTicket(ticketId) {
-      //   logger.log('removing ticket', ticketId)
-      // }
 
 
     }
