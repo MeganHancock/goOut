@@ -71,19 +71,20 @@
 
 
     <!-- NOTE COMMENT SECTION -->
-    <section class="row d-flex justify-content-center action-card rounded-2 m-md-5 m-1 py-3 position-relative">
-      <div class="col-10">
-        <div class="card rounded shadow d-flex justify-content-between flex-row pt-2">
-          <h1 class="align-self-center mx-2">😎</h1>
+    <section v-if="comments"
+      class="row d-flex justify-content-center action-card rounded-2 m-md-5 m-1 py-3 position-relative">
+      <div v-for="comment in comments" :key="comment.id" class="col-10">
+        <div class="card rounded shadow d-flex  flex-row pt-2">
+          <img :src="comment.creator.picture" :alt="comment.creator.name" class="align-self-center mx-2">
           <div>
-            <h3>Name</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae dolor aliquam nobis, iure distinctio
-              quisquam sequi praesentium quae nihil quos!</p>
+            <h3>{{ comment.creator.name }}</h3>
+            <p>{{ comment.body }}!</p>
           </div>
         </div>
       </div>
     </section>
   </div>
+
 </template>
 
 <script>
@@ -136,6 +137,7 @@ export default {
       eventAttendees: computed(() => AppState.ticketedEventAttendees),
       isAttending: computed(() => AppState.ticketedEventAttendees.some(attending => attending.accountId == AppState.account.id)),
       remainingCapacity: computed(() => AppState.activeTowerEvent.capacity - AppState.activeTowerEvent.ticketCount),
+      comments: computed(() => AppState.comments),
 
       async cancelTowerEvent() {
         try {
