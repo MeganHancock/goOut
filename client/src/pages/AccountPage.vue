@@ -23,7 +23,7 @@
   <section v-if="towerEvents" class="row m-auto">
     <div v-for="towerEvent in towerEvents" :key="towerEvent.event.id" class="col-md-4  mb-5 position-relative">
       <TowerEventCard :towerEvent="towerEvent.event" />
-      <button @click="removeTicket(towerEvent.ticketId)" type="button"
+      <button v-if="!towerEvent.event.isCanceled" @click="removeTicket(towerEvent.ticketId)" type="button"
         class="btn btn-warning p-1 fw-bold ms-1 mx-3  position-absolute position-absolute  bottom-0 end-0 rounded-0">Can't
         go?</button>
     </div>
