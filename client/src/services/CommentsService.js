@@ -16,7 +16,7 @@ class CommentsService{
         const response = await api.post('api/comments', commentData)
         logger.log('posting comment', response.data)
         const newComment = new Comment(response.data)
-        AppState.comments.unshift(newComment)
+        AppState.comments.push(newComment)
     }
 
 }

@@ -33,9 +33,9 @@
 
       <!-- NOTE BUTTONS SECTION. -->
       <div class="col-md-3 text-center">
-        <div class="p-3">
+        <div class="p-3 pb-0">
           <div v-if="account.id && account.id != towerEvent.creatorId"
-            :hidden="isAttending || towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity">
+            :hidden="towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity">
             <h5 class="mb-1 mt-5 fw-bold">Interested in going?</h5>
             <p class="mb-1">Grab a ticket!</p>
             <button @click="createTicket()" type="button" class="btn btn-info mb-3 w-100">Attend</button>
@@ -56,6 +56,7 @@
         <div v-if="eventAttendees.length && !towerEvent.isCanceled" class="text-start">
           <h5 class="mt-3 mb-3 fw-bold text-center">Attendees {{
     eventAttendees.length }}</h5>
+          <!-- <p>There are <span class="text-success"></span></p> -->
           <div v-for="attendee in eventAttendees" :key="attendee.profile" class="mt-1">
             <p class="d-flex align-items-center"><i class="mdi mdi-dots-vertical fs-3"> </i>
               <span class="me-2"><img :src="attendee.profile.picture" :alt="attendee.profile.name"
@@ -71,23 +72,29 @@
 
 
     <!-- NOTE COMMENT SECTION -->
-    <div v-if="!towerEvent.isCanceled" class="col-12 action-card p-2 pb-md-3 rounded-2 mt-3">
+    <div v-if="!towerEvent.isCanceled" class="col-10 action-card p-2 pb-md-3 rounded-2 mt-3 m-auto">
 
       <section class="row justify-content-center">
         <div class="col-md-10 m-md-3 mb-md-0">
           <form @submit.prevent="postComment()">
-            <div class="form-floating d-md-flex align-items-center">
-              <textarea v-model="commentData.body" class="form-control " placeholder="Leave a comment here"
+            <label class="fw-bold">Join the conversation!</label>
+            <div class="form-floating  ">
+              <textarea v-model="commentData.body" class="form-control shadow" placeholder="Leave a comment here"
                 id="floatingTextarea2" style="height: 100px" minlength="5" maxLength="500" required></textarea>
               <label for="floatingTextarea2">Comments</label>
-              <button role="submit" class=" btn btn-success text-end mt-1 ms-md-2 fw-bold text-center p-1 ">Post
-                Comment</button>
+              <div class="d-flex justify-content-between">
+
+                <button role="submit" class="btn btn-success text-end mt-1 ms-md-2 fw-bold text-center p-1 ">Post
+                  Comment</button>
+
+              </div>
             </div>
           </form>
         </div>
       </section>
 
-      <section v-if="comments.length" class="row d-flex justify-content-center rounded-2  m-1 py-3 position-relative">
+      <section v-if="comments.length"
+        class="row d-flex flex-column-reverse justify-content-center align-items-center rounded-2  m-1 py-3 position-relative">
         <div v-for="comment in comments" :key="comment.id" class="col-md-10 mb-2">
           <CommentComponent :comment="comment" />
 

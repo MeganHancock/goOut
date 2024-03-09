@@ -9,6 +9,9 @@ class TicketsService {
         logger.log('tickets service', response.data)        
         AppState.ticketedEventAttendees.push(new Ticket(response.data))
         logger.log('new ticketed attendee', AppState.ticketedEventAttendees)
+        logger.log('active ticket', AppState.activeTowerEvent)
+        AppState.activeTowerEvent.ticketCount++
+       
     }
 
     async getTicketsByEventId(eventId){
@@ -32,6 +35,8 @@ class TicketsService {
         const ticketIndex = AppState.myTicketedEvents.findIndex(ticket => ticket.ticketId == ticketId)
         if(ticketIndex == -1) throw new Error('Index is -1')
         AppState.myTicketedEvents.splice(ticketIndex, 1)
+        AppState.activeTowerEvent.ticketCount--
+        logger.log('removing ticket count', AppState.activeTowerEvent.ticketCount)
 
 
     }

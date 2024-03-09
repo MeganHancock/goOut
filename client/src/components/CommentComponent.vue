@@ -4,20 +4,34 @@
         <div class="m-2">
             <h3 class="m-0">{{ comment.creator.name }}</h3>
             <p class="fw-lighter dates">Posted at {{ comment.timeCreatedAt }} at {{ comment.dateCreatedAt }}</p>
-            <p>{{ comment.body }}</p>
+            <p class="box box-md box-lg">{{ comment.body }}</p>
+
+            <!-- <button role="submit" class="btn btn-success text-end mt-1 ms-md-2 fw-bold text-center p-1 ">Remove
+                Comment</button> -->
+            <div>
+                <button v-if="comment.creatorId == account.id" @click="removeComment(comment.id)" type="button"
+                    class=" btn btn-warning p-1 fw-bold ms-1 me-1 mb-1 rounded-2  position-absolute position-absolute  bottom-0 end-0 rounded-0"
+                    title="Delete your comment">❌</button>
+            </div>
+
         </div>
     </div>
 </template>
 
 
 <script>
+import { computed } from 'vue';
 import { Comment } from '../models/Comment.js';
+import { AppState } from '../AppState.js';
 
 export default {
     props: { comment: { type: Comment, required: true } },
 
     setup() {
-        return {}
+        return {
+            account: computed(() => AppState.account),
+
+        }
     }
 }
 </script>
@@ -33,4 +47,23 @@ export default {
     font-weight: lighter;
     font-size: 12px;
 }
-</style>
+
+
+@media screen and (max-width: 440px) {
+    .box {
+        width: 15ch;
+        word-break: break-all;
+    }
+}
+
+// @media screen and (max-width: 600px) {
+//     .box-md {
+//         width: 25ch;
+//     }
+// }
+
+// @media screen and (max-width: 700px) {
+//     .box-lg {
+//         width: 25ch;
+//     }
+// }</style>
