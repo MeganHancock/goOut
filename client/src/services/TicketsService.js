@@ -28,18 +28,22 @@ class TicketsService {
         AppState.myTicketedEvents = newTickets
         
     }
-    
+
     async removeTicket(ticketId){
         const response = await api.delete(`api/tickets/${ticketId}`)
         logger.log('deleting ticket', response.data)
+        logger.log('active event', AppState.activeTowerEvent)
         const ticketIndex = AppState.myTicketedEvents.findIndex(ticket => ticket.ticketId == ticketId)
         if(ticketIndex == -1) throw new Error('Index is -1')
         AppState.myTicketedEvents.splice(ticketIndex, 1)
-        AppState.activeTowerEvent.ticketCount--
-        logger.log('removing ticket count', AppState.activeTowerEvent.ticketCount)
+        // AppState.activeTowerEvent.ticketCount--
+        // logger.log('removing ticket count', AppState.activeTowerEvent.ticketCount)
 
 
     }
+
+    
+
 }
 
 export const ticketsService = new TicketsService()

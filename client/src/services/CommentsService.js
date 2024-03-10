@@ -11,12 +11,17 @@ class CommentsService{
         logger.log('gettin comments', response.data)
         AppState.comments = response.data.map(comment => new Comment(comment))
     }
-
+    
     async postComment(commentData){
         const response = await api.post('api/comments', commentData)
         logger.log('posting comment', response.data)
         const newComment = new Comment(response.data)
         AppState.comments.push(newComment)
+    }
+    async removeComment(commentId, eventId) {
+        const response = await api.delete(`api/comments/${commentId}`)
+        logger.log('remove repsonse', response.data)
+        await this.getCommentsByEventId(eventId)
     }
 
 }

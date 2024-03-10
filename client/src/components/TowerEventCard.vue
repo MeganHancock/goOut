@@ -33,7 +33,9 @@ import { TowerEvent } from '../models/TowerEvent.js'
 export default {
     props: { towerEvent: { type: TowerEvent, required: true } },
     setup() {
-        return {}
+        return {
+
+        }
     }
 }
 </script>

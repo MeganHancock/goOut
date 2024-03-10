@@ -15,7 +15,7 @@
   <div class="container">
 
     <!-- NOTE TWO CLICKABLE INFO CARDS -->
-    <section class="row d-flex justify-content-between mb-4 m-2">
+    <section class="row d-flex justify-content-between mb-md-4  m-auto m-2">
       <div class="col-12 mt-2">
         <h3>How Tower Works</h3>
       </div>

@@ -9,7 +9,8 @@
             <!-- <button role="submit" class="btn btn-success text-end mt-1 ms-md-2 fw-bold text-center p-1 ">Remove
                 Comment</button> -->
             <div>
-                <button v-if="comment.creatorId == account.id" @click="removeComment(comment.id)" type="button"
+                <button v-if="comment.creatorId == account.id" @click="removeComment(comment.id, comment.eventId)"
+                    type="button"
                     class=" btn btn-warning p-1 fw-bold ms-1 me-1 mb-1 rounded-2  position-absolute position-absolute  bottom-0 end-0 rounded-0"
                     title="Delete your comment">❌</button>
             </div>
@@ -23,6 +24,8 @@
 import { computed } from 'vue';
 import { Comment } from '../models/Comment.js';
 import { AppState } from '../AppState.js';
+import Pop from '../utils/Pop.js';
+import { commentsService } from '../services/CommentsService.js';
 
 export default {
     props: { comment: { type: Comment, required: true } },
@@ -31,6 +34,15 @@ export default {
         return {
             account: computed(() => AppState.account),
 
+            async removeComment(commentId, eventId) {
+                try {
+                    const wantsToRemove = await Pop.confirm('Are you sure you would like to remove your comment?')
+                    if (!wantsToRemove) return
+                    await commentsService.removeComment(commentId, eventId)
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
         }
     }
 }
