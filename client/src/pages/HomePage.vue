@@ -17,7 +17,7 @@
     <!-- NOTE TWO CLICKABLE INFO CARDS -->
     <section class="row d-flex justify-content-between mb-md-4  m-auto m-2">
       <div class="col-12 mt-2">
-        <h3>How Tower Works</h3>
+        <h3>How Go Out! Works</h3>
       </div>
       <section class="row d-flex justify-content-between mt-3">
         <div class="col-md-5 col-12 clickable-info-card p-3 d-flex rounded-3 mb-3">
@@ -36,7 +36,7 @@
             <p class="fs-4 mt-1">
               Start and event to invite your friends
             </p>
-            <p>Create your own Tower event, and draw from a community of millions</p>
+            <p>Create your own Go Out! event, and draw from a community of millions</p>
             <p role="button" class="text-success" data-bs-toggle="modal" data-bs-target="#eventFormModal">Create an
               event
             </p>
