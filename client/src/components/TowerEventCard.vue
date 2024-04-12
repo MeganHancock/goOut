@@ -1,7 +1,7 @@
 <template>
     <RouterLink :to="{ name: 'Event Details', params: { eventId: towerEvent.id } }">
         <div class="text-dark">
-            <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid event-grid-image">
+            <img :src="towerEvent.coverImg" :alt="towerEvent.name" class="img-fluid event-grid-image shadow rounded">
 
             <p class="mb-0 fw-bold mt-1"><span
                     :class="{ 'is-canceled': towerEvent.isCanceled || towerEvent.ticketCount == towerEvent.capacity }">{{
